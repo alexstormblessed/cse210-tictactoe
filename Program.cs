@@ -52,7 +52,6 @@
         Console.WriteLine($"{board[3]}|{board[4]}|{board[5]}");
         Console.WriteLine("+-+-");
         Console.WriteLine($"{board[6]}|{board[7]}|{board[8]}");
-        
     }
 
     /// <summary>
@@ -62,6 +61,21 @@
     /// <returns>True if the game is over</returns>
     static bool IsGameOver(List<string> board)
     {
+        if (IsWinner(board, "x") == true || IsWinner(board, "o") == true || IsTie(board) == true)
+        {
+            return true;
+        }
+
+        // else if (IsWinner(board, "o") == true)
+        // {
+        //     return true;
+        // }
+
+        // else if (IsTie(board) == true)
+        // {
+        //     return true;
+        // }
+
         return false;
     }
 
@@ -71,6 +85,39 @@
     /// <returns></returns>
     static bool IsWinner(List<string> board, string player)
     {
+        if (board [0] == player && board[1] == player && board [2] == player)
+        {
+            return true;
+        }
+        else if (board [3] == player && board[4] == player && board [5] == player)
+        {
+            return true;
+        }
+        else if (board [6] == player && board[7] == player && board [8] == player)
+        {
+            return true;
+        }
+        else if (board [2] == player && board[4] == player && board [6] == player)
+        {
+            return true;
+        }
+        else if (board [0] == player && board[4] == player && board [8] == player)
+        {
+            return true;
+        }
+        else if (board [0] == player && board[3] == player && board [6] == player)
+        {
+            return true;
+        }
+        else if (board [1] == player && board[4] == player && board [7] == player)
+        {
+            return true;
+        }
+        else if (board [2] == player && board[5] == player && board [8] == player)
+        {
+            return true;
+        }
+
         return false;
     }
 
@@ -79,6 +126,15 @@
     /// <returns>True if the board is full.</returns>
     static bool IsTie(List<string> board)
     {
+        // List<string> new_board = new List<string>;
+
+        for (int i = 0; i < 8; i++)
+        {
+            if (board[i] != "1" || board[i] != "2" || board[i] != "3" || board[i] != "4" || board[i] != "5" || board[i] != "6" || board[i] != "7" || board[i] != "8" || board[i] != "9")
+            {
+                
+            }
+        }
         return false;
     }
 
@@ -87,7 +143,15 @@
     /// <returns>The next players sign (x or o)</returns>
     static string GetNextPlayer(string currentPlayer)
     {
+        if (currentPlayer == "o")
+        {
         return "x";
+        }
+
+        else
+        {
+            return "o";
+        }
     }
 
     /// <summary>Gets the 1-based spot number associated with the user's choice.</summary>
