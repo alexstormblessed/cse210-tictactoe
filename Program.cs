@@ -3,7 +3,7 @@
     static void Main(string[] args)
     {
 
-        List<string> board = GetNewBoard();
+        Board board = new Board();
         string currentPlayer = "x";
 
         while (!IsGameOver(board))
@@ -18,29 +18,6 @@
 
         DisplayBoard(board);
         Console.WriteLine("Good game. Thanks for playing!");
-    }
-
-    /// <summary>Gets a new instance of the board with the numbers 1-9 in place. </summary>
-    /// <returns>A list of 9 strings representing each square.</returns>
-    static List<string> GetNewBoard()
-    {
-        var board = new List<string>();
-        // board.Add("1");
-        // board.Add("2");
-        // board.Add("3");
-        // board.Add("4");
-        // board.Add("5");
-        // board.Add("6");
-        // board.Add("7");
-        // board.Add("8");
-        // board.Add("9");
-
-        for (int i = 1; i <= 9; i++)
-        {
-            board.Add(i.ToString());
-        }
-
-        return board;
     }
 
     /// <summary>Displays the board in a 3x3 grid.</summary>
@@ -59,84 +36,24 @@
     /// </summary>
     /// <param name="board">The current board.</param>
     /// <returns>True if the game is over</returns>
-    static bool IsGameOver(List<string> board)
+    static bool IsGameOver(Board board)
     {
-        if (IsWinner(board, "x") == true || IsWinner(board, "o") == true || IsTie(board) == true)
+        bool IsGameOver = false;
+        
+        if (board.IsPlayerWinner("x") || board.IsPlayerWinner("o"))
         {
-            return true;
+            IsGameOver = true;
         }
 
-        // else if (IsWinner(board, "o") == true)
-        // {
-        //     return true;
-        // }
-
-        // else if (IsTie(board) == true)
-        // {
-        //     return true;
-        // }
-
-        return false;
-    }
-
-    /// <summary>Determines if the provided player has a tic tac toe.</summary>
-    /// <param name="board">The current board</param>
-    /// <param name="player">The player to check for a win</param>
-    /// <returns></returns>
-    static bool IsWinner(List<string> board, string player)
-    {
-        if (board [0] == player && board[1] == player && board [2] == player)
-        {
-            return true;
-        }
-        else if (board [3] == player && board[4] == player && board [5] == player)
-        {
-            return true;
-        }
-        else if (board [6] == player && board[7] == player && board [8] == player)
-        {
-            return true;
-        }
-        else if (board [2] == player && board[4] == player && board [6] == player)
-        {
-            return true;
-        }
-        else if (board [0] == player && board[4] == player && board [8] == player)
-        {
-            return true;
-        }
-        else if (board [0] == player && board[3] == player && board [6] == player)
-        {
-            return true;
-        }
-        else if (board [1] == player && board[4] == player && board [7] == player)
-        {
-            return true;
-        }
-        else if (board [2] == player && board[5] == player && board [8] == player)
-        {
-            return true;
-        }
-
-        return false;
+        return IsGameOver;
     }
 
     /// <summary>Determines if the board is full with no more moves possible.</summary>
     /// <param name="board">The current board.</param>
     /// <returns>True if the board is full.</returns>
-    static bool IsTie(List<string> board)
+    static bool IsTie(Board board)
     {
-        List<string> new_board = new List<string>();
-
-        for (int i = 0; i < 8; i++) {
-            if (board[i] != "1" || board[i] != "2" || board[i] != "3" || board[i] != "4" || board[i] != "5" || board[i] != "6" || board[i] != "7" || board[i] != "8" || board[i] != "9") {
-                new_board.Add(board[i]);
-                if (new_board.Count() == 9) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return board.ContainsUnclaimedSpaces();
     }
 
     /// <summary>Cycles through the players (from x to o and o to x)</summary>
@@ -160,7 +77,7 @@
     /// <returns>A 1-based spot number (not a 0-based index)</returns>
     static int GetMoveChoice(string currentPlayer)
     {
-        Console.WriteLine("Enter the number of the place you would like to take:");
+        Console.Write("Enter the number of the place you would like to take (1-9):");
         string? choice_str = Console.ReadLine();
         // Convert.ToInt32(choice);
         if (choice_str == "1") {
