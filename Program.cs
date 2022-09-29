@@ -126,13 +126,14 @@
     /// <returns>True if the board is full.</returns>
     static bool IsTie(List<string> board)
     {
-        // List<string> new_board = new List<string>;
+        List<string> new_board = new List<string>();
 
-        for (int i = 0; i < 8; i++)
-        {
-            if (board[i] != "1" || board[i] != "2" || board[i] != "3" || board[i] != "4" || board[i] != "5" || board[i] != "6" || board[i] != "7" || board[i] != "8" || board[i] != "9")
-            {
-                
+        for (int i = 0; i < 8; i++) {
+            if (board[i] != "1" || board[i] != "2" || board[i] != "3" || board[i] != "4" || board[i] != "5" || board[i] != "6" || board[i] != "7" || board[i] != "8" || board[i] != "9") {
+                new_board.Add(board[i]);
+                if (new_board.Count() == 9) {
+                    return true;
+                }
             }
         }
         return false;
@@ -159,7 +160,45 @@
     /// <returns>A 1-based spot number (not a 0-based index)</returns>
     static int GetMoveChoice(string currentPlayer)
     {
-        return 1;
+        Console.WriteLine("Enter the number of the place you would like to take:");
+        string? choice_str = Console.ReadLine();
+        // Convert.ToInt32(choice);
+        if (choice_str == "1") {
+            int choice = 1;
+            return choice;
+        }
+        else if (choice_str == "2") {
+            int choice = 2;
+            return choice;
+        }
+        else if (choice_str == "3") {
+            int choice = 3;
+            return choice;
+        }
+        else if (choice_str == "4") {
+            int choice = 4;
+            return choice;
+        }
+        else if (choice_str == "5") {
+            int choice = 5;
+            return choice;
+        }
+        else if (choice_str == "6") {
+            int choice = 6;
+            return choice;
+        }
+        else if (choice_str == "7") {
+            int choice = 7;
+            return choice;
+        }
+        else if (choice_str == "8") {
+            int choice = 8;
+            return choice;
+        }
+        else {
+            int choice = 9;
+            return choice;
+        }
     }
 
     /// <summary>
@@ -171,6 +210,6 @@
     /// <param name="currentPlayer">The current player's sign (x or o)</param>
     static void MakeMove(List<string> board, int choice, string currentPlayer)
     {
-
+        board[choice - 1] = currentPlayer;
     }
 }
